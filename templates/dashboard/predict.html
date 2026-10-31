@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+AI Decision Engine
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+<style>
+
+.result{
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+background:white;
+box-shadow:0 5px 12px rgba(0,0,0,.08);
+}
+
+.big{
+font-size:40px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+
+AI Decision Engine
+
+</h1>
+
+<p>
+
+Predict COD Risk Before Shipping
+
+</p>
+
+</div>
+
+<div class="section">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label>
+
+Order Value
+
+</label>
+
+<br>
+
+<input
+type="number"
+name="order_value"
+required>
+
+<br><br>
+
+<label>
+
+Previous Orders
+
+</label>
+
+<br>
+
+<input
+type="number"
+name="prior_orders"
+required>
+
+<br><br>
+
+<label>
+
+Previous RTO
+
+</label>
+
+<br>
+
+<input
+type="number"
+name="prior_rto"
+required>
+
+<br><br>
+
+<label>
+
+Source
+
+</label>
+
+<br>
+
+<select
+name="source">
+
+<option value="direct">
+
+Direct
+
+</option>
+
+<option value="meta_ads">
+
+Meta Ads
+
+</option>
+
+<option value="google_ads">
+
+Google Ads
+
+</option>
+
+<option value="influencer">
+
+Influencer
+
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn">
+
+Predict Risk
+
+</button>
+
+</form>
+
+</div>
+
+{% if action %}
+
+<div class="result">
+
+<h2>
+
+Prediction Result
+
+</h2>
+
+<div class="big">
+
+{{ risk }}%
+
+</div>
+
+<p>
+
+Risk Score
+
+</p>
+
+<hr>
+
+<h2>
+
+Recommended Action
+
+</h2>
+
+<h1>
+
+{{ action }}
+
+</h1>
+
+</div>
+
+{% endif %}
+
+</body>
+
+</html>

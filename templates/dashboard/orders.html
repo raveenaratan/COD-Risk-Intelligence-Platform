@@ -1,0 +1,159 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+Orders Explorer
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+
+Orders Explorer
+
+</h1>
+
+<p>
+
+Search, Filter and Explore all orders
+
+</p>
+
+</div>
+
+<div class="section">
+
+<form method="GET">
+
+<input
+class="search-box"
+type="text"
+name="q"
+value="{{ query }}"
+placeholder="Search Order ID">
+
+<select name="status">
+
+<option value="">
+All Status
+</option>
+
+<option value="DELIVERED">
+Delivered
+</option>
+
+<option value="RTO">
+RTO
+</option>
+
+</select>
+
+<select name="source">
+
+<option value="">
+All Sources
+</option>
+
+<option value="meta_ads">
+Meta Ads
+</option>
+
+<option value="google_ads">
+Google Ads
+</option>
+
+<option value="direct">
+Direct
+</option>
+
+</select>
+
+<button class="btn">
+
+Apply Filters
+
+</button>
+
+</form>
+
+</div>
+
+<div class="section">
+
+<table>
+
+<tr>
+
+<th>Order</th>
+
+<th>Customer</th>
+
+<th>Value</th>
+
+<th>Status</th>
+
+<th>Source</th>
+
+<th>Details</th>
+
+</tr>
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+{{ order.order_id }}
+</td>
+
+<td>
+{{ order.customer_name }}
+</td>
+
+<td>
+₹{{ order.order_value }}
+</td>
+
+<td>
+{{ order.final_status }}
+</td>
+
+<td>
+{{ order.utm_source }}
+</td>
+
+<td>
+
+<a
+class="btn"
+href="/order/{{ order.order_id }}/">
+
+Open
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

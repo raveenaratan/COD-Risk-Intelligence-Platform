@@ -1,0 +1,179 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+COD Risk Intelligence Dashboard
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+COD Risk Intelligence Platform
+</h1>
+
+<p>
+AI Powered COD Risk Monitoring System
+</p>
+
+<div class="navbar">
+
+<a href="/">Dashboard</a>
+
+<a href="/orders/">Orders</a>
+
+<a href="/analytics/">Analytics</a>
+
+<a href="/predict/">Predict</a>
+
+<a href="/founder/">Founder View</a>
+
+<a href="/whatsapp/">WhatsApp</a>
+
+</div>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Orders</h3>
+
+<h2>{{ total_orders }}</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Delivered</h3>
+
+<h2>{{ delivered }}</h2>
+
+</div>
+
+<div class="card">
+
+<h3>RTO Orders</h3>
+
+<h2>{{ rto }}</h2>
+
+</div>
+
+<div class="card">
+
+<h3>RTO Rate</h3>
+
+<h2>{{ rto_rate }}%</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Estimated Loss</h3>
+
+<h2>₹{{ estimated_loss }}</h2>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Business Analytics
+</h2>
+
+<br>
+
+<div class="chart-placeholder">
+Interactive Graphs Will Appear Here
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Recent Orders
+</h2>
+
+<br>
+
+<table>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Status</th>
+
+<th>View</th>
+
+</tr>
+
+{% for order in recent_orders %}
+
+<tr>
+
+<td>{{ order.order_id }}</td>
+
+<td>{{ order.customer_name }}</td>
+
+<td>
+
+{% if order.final_status == "RTO" %}
+
+<span class="status-rto">
+
+{{ order.final_status }}
+
+</span>
+
+{% else %}
+
+<span class="status-delivered">
+
+{{ order.final_status }}
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a class="btn"
+href="/order/{{ order.order_id }}/">
+
+Open
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

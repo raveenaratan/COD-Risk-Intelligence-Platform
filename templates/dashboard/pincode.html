@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+Pincode Intelligence
+
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+
+Pincode Intelligence
+
+</h1>
+
+<p>
+
+Area Analysis For Pincode {{ pincode }}
+
+</p>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+
+Total Orders
+
+</h3>
+
+<h2>
+
+{{ total_orders }}
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Delivered
+
+</h3>
+
+<h2>
+
+{{ delivered }}
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+RTO Orders
+
+</h3>
+
+<h2>
+
+{{ rto }}
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+RTO Rate
+
+</h3>
+
+<h2>
+
+{{ rto_rate }}%
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+
+Risk Assessment
+
+</h2>
+
+<hr>
+
+<h3>
+
+Risk Level:
+{{ risk_level }}
+
+</h3>
+
+<br>
+
+<h3>
+
+Recommendation:
+{{ recommendation }}
+
+</h3>
+
+</div>
+
+<div class="section">
+
+<h2>
+
+Orders In This Area
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Value
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+
+<a href="/order/{{ order.order_id }}/">
+
+{{ order.order_id }}
+
+</a>
+
+</td>
+
+<td>
+{{ order.customer_name }}
+</td>
+
+<td>
+₹{{ order.order_value }}
+</td>
+
+<td>
+{{ order.final_status }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="section">
+
+<a
+class="btn"
+href="/analytics/">
+
+Back To Analytics
+
+</a>
+
+<a
+class="btn"
+href="/orders/">
+
+Orders Explorer
+
+</a>
+
+</div>
+
+</body>
+
+</html>

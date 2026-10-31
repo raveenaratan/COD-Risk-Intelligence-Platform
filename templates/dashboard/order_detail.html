@@ -1,0 +1,453 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Order Intelligence Center</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <style>
+
+        .grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .panel{
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+            margin-bottom:20px;
+        }
+
+        .label{
+            font-weight:bold;
+            color:#555;
+        }
+
+        .risk-circle{
+            width:180px;
+            height:180px;
+            margin:auto;
+            border-radius:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            font-size:35px;
+            font-weight:bold;
+        }
+
+        .risk-low{
+            background:#22c55e;
+        }
+
+        .risk-medium{
+            background:#f59e0b;
+        }
+
+        .risk-high{
+            background:#ef4444;
+        }
+
+        .action-box{
+            text-align:center;
+            padding:25px;
+            border-radius:12px;
+            color:white;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .ship{
+            background:#22c55e;
+        }
+
+        .confirm{
+            background:#3b82f6;
+        }
+
+        .prepaid{
+            background:#f59e0b;
+        }
+
+        .hold{
+            background:#ef4444;
+        }
+
+        .action-buttons{
+            margin-top:15px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:10px 18px;
+            background:#4f46e5;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            margin:5px;
+        }
+
+        .btn:hover{
+            background:#3730a3;
+        }
+
+        ul li{
+            margin-bottom:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>
+        Order Intelligence Center
+    </h1>
+
+    <p>
+        Deep AI analysis for individual orders
+    </p>
+
+</div>
+
+<div class="grid">
+
+    <div class="panel">
+
+        <h2>Customer Information</h2>
+
+        <hr><br>
+
+        <p>
+            <span class="label">Order ID:</span>
+            {{ order.order_id }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Customer:</span>
+            {{ order.customer_name }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Phone:</span>
+            {{ order.phone }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Address:</span>
+            {{ order.address }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">City:</span>
+            {{ order.city }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">State:</span>
+            {{ order.state }}
+        </p>
+
+        <br>
+
+        <p>
+
+            <span class="label">Pincode:</span>
+
+            <a
+                class="btn"
+                href="/pincode/{{ order.pincode }}/">
+
+                {{ order.pincode }}
+
+            </a>
+
+        </p>
+
+        <div class="action-buttons">
+
+            <a
+                class="btn"
+                href="/customer/{{ order.customer_name }}/">
+
+                Customer Intelligence
+
+            </a>
+
+            <a
+                class="btn"
+                href="/pincode/{{ order.pincode }}/">
+
+                Pincode Intelligence
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Order Information</h2>
+
+        <hr><br>
+
+        <p>
+            <span class="label">Order Value:</span>
+            ₹{{ order.order_value }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Items:</span>
+            {{ order.items }}
+        </p>
+
+        <br>
+
+        <p>
+
+            <span class="label">Courier:</span>
+
+            <a
+                class="btn"
+                href="/courier/{{ order.courier }}/">
+
+                {{ order.courier }}
+
+            </a>
+
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Marketing Source:</span>
+            {{ order.utm_source }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Previous Orders:</span>
+            {{ order.customer_prior_orders }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Previous RTO:</span>
+            {{ order.customer_prior_rto }}
+        </p>
+
+        <br>
+
+        <p>
+            <span class="label">Actual Status:</span>
+            {{ order.final_status }}
+        </p>
+
+    </div>
+
+</div>
+
+<div class="panel">
+
+    <h2>AI Risk Engine</h2>
+
+    <hr><br>
+
+    {% if risk < 30 %}
+
+        <div class="risk-circle risk-low">
+
+            {{ risk }}%
+
+        </div>
+
+    {% elif risk < 75 %}
+
+        <div class="risk-circle risk-medium">
+
+            {{ risk }}%
+
+        </div>
+
+    {% else %}
+
+        <div class="risk-circle risk-high">
+
+            {{ risk }}%
+
+        </div>
+
+    {% endif %}
+
+    <br><br>
+
+    {% if action == "Ship As Is" %}
+
+        <div class="action-box ship">
+
+            {{ action }}
+
+        </div>
+
+    {% elif action == "Confirm via WhatsApp" %}
+
+        <div class="action-box confirm">
+
+            {{ action }}
+
+        </div>
+
+    {% elif action == "Nudge To Prepaid" %}
+
+        <div class="action-box prepaid">
+
+            {{ action }}
+
+        </div>
+
+    {% else %}
+
+        <div class="action-box hold">
+
+            {{ action }}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<div class="panel">
+
+    <h2>Decision Explanation</h2>
+
+    <hr><br>
+
+    <ul>
+
+        <li>Previous customer history affects confidence.</li>
+
+        <li>Previous RTO count increases future risk.</li>
+
+        <li>High-value COD orders carry more business risk.</li>
+
+        <li>Marketing acquisition source is considered.</li>
+
+        <li>Courier performance contributes to risk scoring.</li>
+
+        <li>Geographic destination contributes to risk scoring.</li>
+
+    </ul>
+
+</div>
+
+<div class="panel">
+
+    <h2>Business Impact</h2>
+
+    <hr><br>
+
+    <ul>
+
+        <li>Forward Shipping Loss</li>
+
+        <li>Return Shipping Loss</li>
+
+        <li>Packaging Loss</li>
+
+        <li>Damage Risk</li>
+
+        <li>False Cancellation Risk</li>
+
+    </ul>
+
+</div>
+
+<div class="panel">
+
+    <h2>
+
+        Next Investigation
+
+    </h2>
+
+    <hr><br>
+
+    <a
+        class="btn"
+        href="/customer/{{ order.customer_name }}/">
+
+        Customer Intelligence
+
+    </a>
+
+    <a
+        class="btn"
+        href="/pincode/{{ order.pincode }}/">
+
+        Pincode Intelligence
+
+    </a>
+
+    <a
+        class="btn"
+        href="/courier/{{ order.courier }}/">
+
+        Courier Intelligence
+
+    </a>
+
+    <a
+        class="btn"
+        href="/orders/">
+
+        Orders Explorer
+
+    </a>
+
+    <a
+        class="btn"
+        href="/analytics/">
+
+        Analytics Dashboard
+
+    </a>
+
+    <a
+        class="btn"
+        href="/predict/">
+
+        AI Decision Engine
+
+    </a>
+
+</div>
+
+</body>
+</html>

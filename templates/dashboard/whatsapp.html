@@ -1,0 +1,208 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+WhatsApp Confirmation Simulator
+
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+<style>
+
+.chat-box{
+
+    background:white;
+
+    max-width:600px;
+
+    margin:auto;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+
+}
+
+.bot{
+
+    background:#dcf8c6;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+}
+
+.result{
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+button{
+
+    padding:12px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    margin:5px;
+
+}
+
+.yes{
+
+    background:#22c55e;
+
+    color:white;
+
+}
+
+.no{
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+.none{
+
+    background:#f59e0b;
+
+    color:white;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+
+WhatsApp Confirmation Flow
+
+</h1>
+
+<p>
+
+Simulated Customer Interaction
+
+</p>
+
+</div>
+
+<div class="chat-box">
+
+<div class="bot">
+
+Hello 👋
+
+<br><br>
+
+Please confirm your COD order.
+
+<br><br>
+
+Reply:
+
+<br>
+
+YES
+
+<br>
+
+NO
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button
+type="submit"
+name="response"
+value="yes"
+class="yes">
+
+YES
+
+</button>
+
+<button
+type="submit"
+name="response"
+value="no"
+class="no">
+
+NO
+
+</button>
+
+<button
+type="submit"
+name="response"
+value="none"
+class="none">
+
+NO RESPONSE
+
+</button>
+
+</form>
+
+{% if outcome %}
+
+<div
+class="result"
+style="background: {{ color }};">
+
+<h2>
+
+{{ outcome }}
+
+</h2>
+
+<p>
+
+{{ message }}
+
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
