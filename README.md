@@ -117,6 +117,14 @@ Automatically trigger Ship, Confirm, Prepaid, or Hold actions based on configura
 
 ---
 
+## Executive Summary
+
+I analyzed historical COD order data and developed a COD Risk Intelligence Platform to identify high-risk orders before shipment.
+
+The solution was implemented using **Django** and includes Analytics Dashboard, Order Intelligence, Customer Intelligence, Pincode Intelligence, Courier Intelligence, Risk Scoring, Founder Dashboard, and a WhatsApp Confirmation Simulator to support operational decision-making.
+
+---
+
 ## Final Recommendation
 
 Rather than restricting COD orders universally, I recommend a risk-based fulfillment strategy combining customer history, pincode intelligence, courier analysis, and confirmation workflows. This approach can reduce avoidable RTO losses while preserving customer experience, operational efficiency, and long-term business growth.
